@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ASP_NET_Opdracht1.Models.Films>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewBag.filter = false;
+    ViewBag.filterStr = "";
+}
+
+<script>
+    function Refresh(){
+        location.reload();
+    }
+    function RefreshFilter(){
+        var checkbox = document.getElementById('Checkbox');
+        if (checkbox.checked == true)
+           Refresh();
+    }
+</script>
+
+<h1>Films</h1>
+
+<p>
+    <a asp-action="Create">Voeg film toe</a>
+</p>
+<br />
+<div>
+     <label>Filter</label>
+     <input type="text" onkeyPress="RefreshFilter()" id="Filter"/>
+     <input type="checkbox" onclick="Refresh()" id="Checkbox"/>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Regiseur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Acteurs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdultRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Runtime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plot)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <script>
+        var filterString = document.getElementById('Filter').value;
+        var checkbox = document.getElementById('Checkbox');
+        ViewBag.filterStr = filterString;
+        if (checkbox.checked == true)
+            ViewBag.filter = true;
+        else
+            ViewBag.filter = false;
+        </script>
+        @foreach (var item in Model)
+        {
+            if (item.visible == false)
+            {
+                continue;
+            }
+            if (ViewBag.filter == true)
+            {
+              if (item.Title.Contains(ViewBag.filterStr) == false)
+              {
+                continue;
+              }
+            }
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Regiseur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Acteurs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prijs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Review)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdultRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plot)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit film</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete film</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ASP_NET_Opdracht1.Models.Verhuur>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Verhuur</h1>
+
+<p>
+    <a asp-action="Create">Verhuur een film</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LidId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UitleenDatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TerugDatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotaalPrijs)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if (item.visible == false)
+            {
+                continue;
+            }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LidId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UitleenDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TerugDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotaalPrijs)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VerhuurId">Edit Verhuur</a> |
+                <a asp-action="Details" asp-route-id="@item.VerhuurId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.VerhuurId">Delete Verhuur</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

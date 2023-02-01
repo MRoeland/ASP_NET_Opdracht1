@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ASP_NET_Opdracht1.Models.Verhuurlijn>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Verhuur geschiedenis</h1>
+
+<p>
+    <a asp-action="Create">Maak een verhuurlijn</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VerhuurId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UitleenDatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TerugDatum)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if (item.visible == false)
+            {
+                continue;
+            }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VerhuurId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prijs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UitleenDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TerugDatum)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit verhuurlijn</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete verhuurlijn</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
